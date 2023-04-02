@@ -5,7 +5,7 @@ import torch
 def dim(x) -> list:
     if not type(x) in [list, pd.DataFrame, np.ndarray, torch.Tensor]:
         return []
-    return dim(x)+dim(x[0])
+    return len[x]+dim(x[0])
 
 
 def check_rectangular(x) -> bool:
@@ -79,3 +79,5 @@ def mytranspose(x):
     return xt
 
 
+
+#%%
