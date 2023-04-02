@@ -1,19 +1,18 @@
 import numpy as np
 import pandas as pd
-import torch
 
 def dim(x) -> list:
-    if not type(x) in [list, pd.DataFrame, np.ndarray, torch.Tensor]:
+    if not hasattr(x, "__len__"):
         return []
-    return len[x]+dim(x[0])
-
+    elif ((len(x) == 0) | (type(x) == str)):
+        return []
+    else:
+        return [len(x)]+dim(x[0])
 
 def check_rectangular(x) -> bool:
     is_rectangular = False
-    if not type(x) in [list, pd.DataFrame, np.ndarray, torch.Tensor]:
-        is_rectangular = False
-    # null case or element
-    elif len(dim(x)) == 0:
+    # element
+    if len(dim(x)) == 0 & hasattr(x, "__len__"):
         is_rectangular = True
     # 1d list case
     elif len(dim(x)) == 1:
@@ -23,7 +22,7 @@ def check_rectangular(x) -> bool:
         is_rectangular = True
         n_row = dim(x)[0]
         n_col_first = dim(x)[1]
-        for r_idx in range(len(n_row)):
+        for r_idx in range(n_row):
             row = x[r_idx]
             n_col = len(row)
             if n_col != n_col_first:
@@ -43,25 +42,33 @@ def mytranspose_0d(x):
         print("returning itself")
         return None
 def mytranspose_1d(x):
-    # consider 1d list/array as row vector
-    # because when we unflatten 1d-array its row vector
+    # consider 1d list/array as vector without axis
+    # that is it is neither row_vector and column vector
+    # retrun itself
     # len(dim(x)) = 1
     if check_rectangular(x):
-        xt = []
-        for i in x:
-            xt.append([i])
-    return xt
+        return x
+    else:
+        print("Cannot transpose input")
+        print("input should be null or 1+ dimension rectangular numeric, list, array, dataframe, tensor")
+        print("returning itself")
+        return None
 
 def mytranspose_2d_or_higher(x):
     # consider 1d list/array as matrix
     if check_rectangular(x):
         xt = []
         n_row, n_col = dim(x)[0], dim(x)[1]
-        for c_idx in range(len(n_col)):
+        for c_idx in range(n_col):
             col = []
-            for r_idx in range(len(n_row)):
+            for r_idx in range(n_row):
                 col.append(x[r_idx][c_idx])
             xt.append(col)
+    else:
+        print("Cannot transpose input")
+        print("input should be null or 1+ dimension rectangular numeric, list, array, dataframe, tensor")
+        print("returning itself")
+        return None
     return xt
 
 def mytranspose(x):
@@ -78,6 +85,3 @@ def mytranspose(x):
         xt = mytranspose_0d(x)
     return xt
 
-
-
-#%%
