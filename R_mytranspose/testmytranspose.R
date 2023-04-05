@@ -7,8 +7,8 @@ mymat4 <- matrix(c(1,2), nrow = 2, ncol = 1) # col vector matrix
 
 # test case vector
 myvec1 <- c(1, 2, NA, 3)
-myvec2 <- c(NA)
-myvec3 <- c()
+myvec2 <- NA
+myvec3 <- NULL
 
 #test case dataframes
 d <- c(1,2,3,4)
@@ -19,24 +19,24 @@ mydata1 <- data.frame(d,e,f)
 #compare ignoring na
 compare_with_na <- function (x,y) {
   same <- (x==y) | (is.na(x)&is.na(y)) #both na of same
-  all_same = all(same) #for all element
+  all_same <- all(same) #for all element
   return(all_same)
 }
 
 
 check_transpose <- function (x) {
-  correct = FALSE
-  mytp = mytranspose(x)
+  correct <- FALSE
+  mytp <- mytranspose(x)
 
   if (length(mytp)==0 && length(x)==0){ # 0 size Null
     if (all(is.na(mytp))&&all(is.na(x))) {
-    correct = TRUE
+    correct <- TRUE
     }
   }
 
   else {
-    tp = t(x)
-    correct = compare_with_na(mytp,tp)
+    tp <- t(x)
+    correct <- compare_with_na(mytp, tp)
   }
   return(correct)
 }
@@ -76,3 +76,19 @@ test_mytranspose(mymat4)
 print("#####TESTING DATAFRAME TRANSPOSE#####")
 test_mytranspose(mydata1)
 
+# Adding mixed type case
+mixed_vector <- c(1, "a", TRUE, NA)
+mixed_matrix_1 <- matrix(data=c(1, 2, 3, "a", "b", "c", TRUE, NA, FALSE), nrow=3, ncol=3)
+mixed_matrix_2 <- matrix(c(1, "a", TRUE, NA, Inf, 0.01), nrow=2, ncol=3)
+
+mixed_col_1 <- c(1,"a",TRUE, NA)
+mixed_col_2 <- c("b", FALSE, Inf, 2)
+mixed_col_3 <- c("TRUE",NA,0.1,"d")
+
+mixed_data <- data.frame(mixed_col_1,mixed_col_2,mixed_col_3)
+
+print("#####TESTING MIXED CLASSED DATASET#####")
+test_mytranspose(mixed_vector)
+test_mytranspose(mixed_matrix_1)
+test_mytranspose(mixed_matrix_2)
+test_mytranspose(mixed_data)
