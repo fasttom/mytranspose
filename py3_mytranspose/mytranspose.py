@@ -1,3 +1,5 @@
+import numpy as np
+
 def dim(x)->list:
     # x_should be type which can be converted to list
     if is_sequence(x):
@@ -7,7 +9,10 @@ def dim(x)->list:
 
 def is_sequence(obj)->bool:
     t = type(obj)
-    return hasattr(t, "__len__") and hasattr(t, "__getitem__") and (t != str)
+    if issubclass(t,(list, tuple, np.ndarray)):
+        return True
+    else:
+        return False
 
 def is_rectangular(x)->bool:
     dim_x = dim(x)
@@ -52,4 +57,6 @@ def mytranspose(x):
         print(x)
         print("is not rectangualr for first two dimension")
         xt = None
+    if issubclass(type(x), np.ndarray):
+        xt = np.array(xt)
     return xt

@@ -1,7 +1,7 @@
 mytranspose_matrix <- function(x) {
   y <- matrix(1, nrow = ncol(x), ncol = nrow(x))
-  for (i in 1:nrow(x)) {
-    for (j in 1:ncol(x)) {
+  for (i in seq_len(nrow(x))) {
+    for (j in seq_len(ncol(x))) {
       y[j,i] <- x[i,j]
     }
   }
@@ -10,7 +10,6 @@ mytranspose_matrix <- function(x) {
 
 
 mytranspose_dataframe <- function (x) {
-  x_mat <- as.matrix(x)
   y <- mytranspose_matrix(x)
   return(y)
 }

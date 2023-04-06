@@ -7,8 +7,8 @@ mymat4 <- matrix(c(1,2), nrow = 2, ncol = 1) # col vector matrix
 
 # test case vector
 myvec1 <- c(1, 2, NA, 3)
-myvec2 <- c(NA)
-myvec3 <- c()
+myvec2 <- NA
+myvec3 <- NULL
 
 #test case dataframes
 d <- c(1,2,3,4)
@@ -19,24 +19,24 @@ mydata1 <- data.frame(d,e,f)
 #compare ignoring na
 compare_with_na <- function (x,y) {
   same <- (x==y) | (is.na(x)&is.na(y)) #both na of same
-  all_same = all(same) #for all element
+  all_same <- all(same) #for all element
   return(all_same)
 }
 
 
 check_transpose <- function (x) {
-  correct = FALSE
-  mytp = mytranspose(x)
+  correct <- FALSE
+  mytp <- mytranspose(x)
 
   if (length(mytp)==0 && length(x)==0){ # 0 size Null
     if (all(is.na(mytp))&&all(is.na(x))) {
-    correct = TRUE
+    correct <- TRUE
     }
   }
 
   else {
-    tp = t(x)
-    correct = compare_with_na(mytp,tp)
+    tp <- t(x)
+    correct <- compare_with_na(mytp, tp)
   }
   return(correct)
 }
@@ -76,3 +76,35 @@ test_mytranspose(mymat4)
 print("#####TESTING DATAFRAME TRANSPOSE#####")
 test_mytranspose(mydata1)
 
+# =====new testcase added=====
+# scalar case
+new_scalar1 <- NA
+new_scalar2 <- Inf
+new_scalar3 <- "text"
+new_scalar4 <- 1234567
+
+print("#####TESTING SCALAR TRANSPOSE#####")
+test_mytranspose(new_scalar1)
+test_mytranspose(new_scalar2)
+test_mytranspose(new_scalar3)
+test_mytranspose(new_scalar4)
+
+# vector case
+new_vector_1 <- c("this", "is", "a", "vector")
+new_vector_2 <- c(1, 0.1, 0.01, 0.001, 0)
+new_vector_3 <- c(NA, Inf, NA, Inf)
+
+print("#####TESTING VECTOR TRANSPOSE#####")
+test_mytranspose(new_vector_1)
+test_mytranspose(new_vector_2)
+test_mytranspose(new_vector_3)
+
+# matrix case
+new_matrix_1 <- matrix(c("this", "is", "a", "matrix"), nrow = 2)
+new_matrix_2 <- matrix(c(10, 1, 0.1, 0.01, 0.001, 0), nrow = 3)
+new_matrix_3 <- matrix(c(Inf, Inf, Inf, NA, NA, NA), nrow = 3)
+
+print("#####TESTING MATRIX TRANSPOSE#####")
+test_mytranspose(new_matrix_1)
+test_mytranspose(new_matrix_2)
+test_mytranspose(new_matrix_3)
