@@ -40,10 +40,7 @@ def is_rectangular(x)->bool:
     return rectangular
 
 def mytranspose_upto_1d(x):
-    xt = x
-    if issubclass(type(x), np.ndarray):
-        xt = np.array(xt)
-    return xt
+    return x
 
 def mytranspose_from_2d(x):
     xt = []
@@ -53,8 +50,6 @@ def mytranspose_from_2d(x):
         for row_idx in range(n_row):
             col.append(x[row_idx][col_idx])
         xt.append(col)
-    if issubclass(type(x), np.ndarray):
-        xt = np.array(xt)
     return xt
 
 def mytranspose_dataframe(x:pd.DataFrame):
@@ -76,5 +71,7 @@ def mytranspose(x):
         print(x)
         print("is not rectangualr for first two dimension")
         xt = None
+    if issubclass(type(x), np.ndarray):
+        xt = np.array(xt)
     return xt
 #%%
