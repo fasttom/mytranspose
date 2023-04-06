@@ -76,6 +76,7 @@ test_mytranspose(mymat4)
 print("#####TESTING DATAFRAME TRANSPOSE#####")
 test_mytranspose(mydata1)
 
+
 # Adding mixed type case
 mixed_vector <- c(1, "a", TRUE, NA)
 mixed_matrix_1 <- matrix(data=c(1, 2, 3, "a", "b", "c", TRUE, NA, FALSE), nrow=3, ncol=3)
@@ -92,3 +93,37 @@ test_mytranspose(mixed_vector)
 test_mytranspose(mixed_matrix_1)
 test_mytranspose(mixed_matrix_2)
 test_mytranspose(mixed_data)
+
+# =====new testcase added=====
+# scalar case
+new_scalar1 <- NA
+new_scalar2 <- Inf
+new_scalar3 <- "text"
+new_scalar4 <- 1234567
+
+print("#####TESTING SCALAR TRANSPOSE#####")
+test_mytranspose(new_scalar1)
+test_mytranspose(new_scalar2)
+test_mytranspose(new_scalar3)
+test_mytranspose(new_scalar4)
+
+# vector case
+new_vector_1 <- c("this", "is", "a", "vector")
+new_vector_2 <- c(1, 0.1, 0.01, 0.001, 0)
+new_vector_3 <- c(NA, Inf, NA, Inf)
+
+print("#####TESTING VECTOR TRANSPOSE#####")
+test_mytranspose(new_vector_1)
+test_mytranspose(new_vector_2)
+test_mytranspose(new_vector_3)
+
+# matrix case
+new_matrix_1 <- matrix(c("this", "is", "a", "matrix"), nrow = 2)
+new_matrix_2 <- matrix(c(10, 1, 0.1, 0.01, 0.001, 0), nrow = 3)
+new_matrix_3 <- matrix(c(Inf, Inf, Inf, NA, NA, NA), nrow = 3)
+
+print("#####TESTING MATRIX TRANSPOSE#####")
+test_mytranspose(new_matrix_1)
+test_mytranspose(new_matrix_2)
+test_mytranspose(new_matrix_3)
+

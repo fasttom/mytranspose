@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 def dim(x)->list:
     # x_should be type which can be converted to list
     if issubclass(type(x), pd.DataFrame):
@@ -74,4 +75,4 @@ def mytranspose(x):
     if issubclass(type(x), np.ndarray):
         xt = np.array(xt)
     return xt
-#%%
+
